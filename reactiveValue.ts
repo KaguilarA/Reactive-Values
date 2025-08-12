@@ -31,7 +31,7 @@ export default <T>(
    * @private
    */
   const notify = () =>
-    listeners.forEach((listener) => listener(value));
+    listeners.forEach(async (listener) => await listener(value));
 
   /**
    * Obtiene el valor actual.
