@@ -1,4 +1,11 @@
-import { CompareFn, Listener, ReactiveValue } from "../interfaces/utils";
+type Listener<T> = (value: T) => void;
+type CompareFn<T> = (a: T, b: T) => boolean;
+
+interface ReactiveValue<T> {
+  get: () => T;
+  set: (value: T) => void;
+  effect: (listener: Listener<T>) => Promise<() => boolean>;
+}
 
 /**
  * Crea un valor reactivo que permite escuchar y reaccionar a cambios de valor.
