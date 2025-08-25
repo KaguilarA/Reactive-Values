@@ -1,66 +1,48 @@
-type Listener<T> = (value: T) => void;
-type CompareFn<T> = (a: T, b: T) => boolean;
-
-interface ReactiveValue<T> {
-  get: () => T;
-  set: (value: T) => void;
-  effect: (listener: Listener<T>) => Promise<() => boolean>;
-}
+import { Listener } from "./types/listener";
+import { ReactiveValue } from "./interface/Reactive";
+import deepEqual from "./deepEqual";
 
 /**
- * Crea un valor reactivo que permite escuchar y reaccionar a cambios de valor.
- *
- * @template T Tipo del valor almacenado.
- * @param {T} initialValue Valor inicial.
- * @param {CompareFn<T>} [compareFn] Función para comparar el valor anterior y el nuevo. Por defecto compara con ===.
- * @returns {ReactiveValue<T>} Objeto con métodos para obtener, actualizar y escuchar el valor.
- *
- * @example
- * const count = reactiveValue(0);
- * count.effect((value) => console.log(value));
- * count.set(1); // Notifica a los listeners
+ * Creates a reactive value object that notifies listeners on changes.
+ * @template T
+ * @param {T} initialValue - The initial value.
+ * @returns {ReactiveValue<T>} The reactive value object.
  */
 export default <T>(
   initialValue: T,
-  compareFn: CompareFn<T> = (a, b) => a === b
 ): ReactiveValue<T> => {
-  let value = initialValue;
+  let value: T = initialValue;
   const listeners = new Set<Listener<T>>();
-  /**
-   * Notifica a todos los listeners con el valor actual.
-   * @private
-   */
-  const notify = () =>
-    listeners.forEach(async (listener) => await listener(value));
 
   /**
-   * Obtiene el valor actual.
-   * @returns {T} Valor actual.
+   * Gets the current value.
+   * @returns {T}
    */
-  const get = () => value;
+  function get(): T {
+    return value;
+  }
 
   /**
-   * Actualiza el valor y notifica a los listeners si el valor cambió.
-   * @param {T} newValue Nuevo valor.
+   * Sets a new value and notifies listeners if the value changed.
+   * @param {T} newValue
    */
-  const set = (newValue: T) => {
-    if (!compareFn(newValue, value)) {
+  function set(newValue: T): void {
+    if (!deepEqual(newValue, value)) {
       value = newValue;
-      notify();
+      listeners.forEach((listener) => Promise.resolve(listener(value)));
     }
-  };
+  }
 
   /**
-   * Registra un listener que se ejecuta cuando el valor cambia.
-   * Devuelve una función para remover el listener.
-   * @param {Listener<T>} listener Función que recibe el valor actual.
-   * @returns {Promise<() => void>} Función para remover el listener.
+   * Registers a listener that reacts to value changes.
+   * @param {Listener<T>} listener
+   * @returns {() => boolean} Function to remove the listener.
    */
-  const effect = async (listener: Listener<T>) => {
+  function effect(listener: Listener<T>): () => boolean {
     listeners.add(listener);
-    await listener(value);
+    Promise.resolve(listener(value));
     return () => listeners.delete(listener);
-  };
+  }
 
   return { get, set, effect };
 }
