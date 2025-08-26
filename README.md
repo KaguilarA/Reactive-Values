@@ -1,26 +1,26 @@
 # 🔄 Reactive Core
 
-Una librería ligera y extensible para manejar valores reactivos en TypeScript. Ideal para proyectos que requieren reactividad sin frameworks pesados, con soporte para valores derivados y comparación profunda.
+A lightweight and extensible TypeScript library for managing reactive values and computed dependencies. Designed for projects that need reactivity without relying on heavy frameworks.
 
-## 🚀 Instalación
+## 🚀 Installation
 
 ```bash
 npm install reactive-core
 ```
 
-## 📦 ¿Qué incluye?
+## 📦 What's Included?
 
-Esta librería expone tipos, interfaces y utilidades para construir sistemas reactivos personalizados:
+This library provides types, interfaces, and utilities for building custom reactive systems:
 
-| Módulo | Descripción |
+| Module | Description |
 |--------|-------------|
-| `Listener<T>` | Función que reacciona a cambios de valor |
-| `ReactiveValue<T>` | Interfaz para valores reactivos con métodos para obtener, actualizar y escuchar cambios |
-| `reactiveValue(initialValue)` | Implementación de `ReactiveValue<T>` con listeners y comparación profunda |
-| `computedValue(compute, deps)` | Valor derivado que se actualiza automáticamente al cambiar sus dependencias |
-| `deepEqual(a, b)` | Función para comparar profundamente dos valores |
+| `Listener<T>` | A function that reacts to value changes |
+| `ReactiveValue<T>` | Interface for reactive values with `get`, `set`, and `effect` methods |
+| `reactiveValue(initialValue)` | Creates a reactive value with deep equality and listener support |
+| `computedValue(compute, deps)` | Creates a derived value that updates automatically when dependencies change |
+| `deepEqual(a, b)` | Performs deep equality checks between complex values |
 
-## 🧠 Conceptos clave
+## 🧠 Core Concepts
 
 ### `Listener<T>`
 
@@ -28,7 +28,7 @@ Esta librería expone tipos, interfaces y utilidades para construir sistemas rea
 type Listener<T> = (value: T) => void;
 ```
 
-Función que se ejecuta cada vez que el valor reactivo cambia. Ideal para actualizar UI, sincronizar estados, o disparar efectos secundarios.
+A function that runs whenever the reactive value changes. Useful for syncing UI, triggering side effects, or propagating state.
 
 ### `ReactiveValue<T>`
 
@@ -40,9 +40,9 @@ interface ReactiveValue<T> {
 }
 ```
 
-- `get()`: obtiene el valor actual.
-- `set(value)`: actualiza el valor y notifica a los listeners si cambió.
-- `effect(listener)`: registra un listener que se ejecuta en cada cambio. Retorna una función para removerlo.
+- `get()`: Returns the current value.
+- `set(value)`: Updates the value and notifies listeners if it changed.
+- `effect(listener)`: Registers a listener and immediately invokes it. Returns a function to remove the listener.
 
 ### `reactiveValue(initialValue): ReactiveValue<T>`
 
@@ -52,11 +52,11 @@ import reactiveValue from 'reactive-core/values/reactiveValue';
 const count = reactiveValue(0);
 ```
 
-Crea una instancia de `ReactiveValue<T>` con:
+Creates a reactive value with:
 
-- Comparación profunda usando `deepEqual`
-- Notificación asíncrona a los listeners
-- Ejecución inmediata del listener al registrarse
+- Deep equality comparison using `deepEqual`
+- Asynchronous listener notification
+- Immediate listener invocation on registration
 
 ### `computedValue(compute, deps): ReactiveValue<T>`
 
@@ -64,7 +64,7 @@ Crea una instancia de `ReactiveValue<T>` con:
 import computedValue from 'reactive-core/values/computedValue';
 
 const firstName = reactiveValue('Ana');
-const lastName = reactiveValue('Gómez');
+const lastName = reactiveValue('Gomez');
 
 const fullName = computedValue(
   () => `${firstName.get()} ${lastName.get()}`,
@@ -72,11 +72,11 @@ const fullName = computedValue(
 );
 
 fullName.effect((name) => {
-  console.log('Nombre completo:', name);
+  console.log('Full name:', name);
 });
 ```
 
-Crea un valor derivado que se actualiza automáticamente cuando cambian sus dependencias. No puede modificarse directamente (`set()` lanza error).
+Creates a derived reactive value that automatically updates when any dependency changes. Cannot be manually set (`set()` throws an error).
 
 ### `deepEqual(a, b): boolean`
 
@@ -86,14 +86,14 @@ import deepEqual from 'reactive-core/utils/deepEqual';
 const isEqual = deepEqual({ a: 1 }, { a: 1 }); // true
 ```
 
-Realiza una comparación profunda entre dos valores. Soporta:
+Performs deep equality checks between two values. Supports:
 
-- Primitivos
+- Primitives
 - Arrays
-- Objetos
-- Instancias de `Date`, `RegExp`, `Map`, y `Set`
+- Objects
+- `Date`, `RegExp`, `Map`, and `Set` instances
 
-## 🧪 Ejemplo completo
+## 🧪 Full Example
 
 ```ts
 import reactiveValue from 'reactive-core/values/reactiveValue';
@@ -105,16 +105,14 @@ const quantity = reactiveValue(2);
 const total = computedValue(() => price.get() * quantity.get(), [price, quantity]);
 
 total.effect((val) => {
-  console.log('Total actualizado:', val);
+  console.log('Updated total:', val);
 });
 
-price.set(120); // "Total actualizado: 240"
+price.set(120); // "Updated total: 240"
 ```
 
-## 🛠️ Objetivo
+## 🎯 Purpose
 
-Esta librería busca ofrecer una base sólida para construir sistemas reactivos personalizados, manteniendo la simplicidad y flexibilidad para integrarse en cualquier stack moderno.
+Reactive Core provides a clean foundation for building reactive systems in TypeScript. It emphasizes simplicity, modularity, and flexibility—perfect for custom UI logic, state management, or animation triggers.
 
-## 📄 Licencia
-
-MIT
+## 📄 License
