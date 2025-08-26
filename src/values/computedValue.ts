@@ -1,29 +1,33 @@
 import type { Listener } from "../types/listener";
-import type { ComputedValue } from "../interface/Computed";
+import type { ComputedValue, ComputedOptions } from "../interface/Computed";
 import type { ReactiveValue } from "../interface/Reactive";
 import deepEqual from "../utils/deepEqual";
 
 /**
  * Creates a computed reactive value that automatically updates when its dependencies change.
+ * Listeners are notified when the computed value changes.
+ *
  * @template T
  * @param {() => T} compute - Function to compute the value based on dependencies.
  * @param {ReactiveValue<any>[]} deps - Array of reactive values to watch as dependencies.
- * @returns {ComputedValue<T>} The computed reactive value object.
+ * @param {ComputedOptions} [options] - Options for configuring async effects and updates.
+ * @returns {ComputedValue<T> & (() => T)} The computed reactive value object, also callable as a function.
  */
 export default function computedValue<T>(
   compute: () => T,
-  deps: ReactiveValue<any>[]
-): ComputedValue<T> {
+  deps: ReactiveValue<any>[],
+  options: ComputedOptions = { asyncEffect: false, asyncUpdates: false }
+): ComputedValue<T> & (() => T) {
+  const { asyncEffect = false, asyncUpdates = false } = options;
+  const effects = new Set<Listener<T>>();
   let value: T = compute();
-  const listeners = new Set<Listener<T>>();
+  let scheduled = false;
 
   /**
-   * Gets the current computed value.
-   * @returns {T} The current value.
+   * The computed function, returns the current value.
+   * @returns {T} The current computed value.
    */
-  function get(): T {
-    return value;
-  }
+  const computedFn = (() => value) as ComputedValue<T> & (() => T);
 
   /**
    * Notifies listeners if the computed value has changed.
@@ -33,14 +37,26 @@ export default function computedValue<T>(
     const newValue = compute();
     if (!deepEqual(newValue, value)) {
       value = newValue;
-      listeners.forEach((listener) => Promise.resolve(listener(value)));
+
+      if (asyncUpdates) {
+        if (!scheduled) {
+          scheduled = true;
+          Promise.resolve().then(() => {
+            scheduled = false;
+            effects.forEach((listener) => listener(value));
+          });
+        }
+      } else {
+        effects.forEach((listener) => listener(value));
+      }
     }
   }
 
-  // Register notify as an effect for each dependency
-  deps.forEach((dep) => {
-    dep.effect(() => notify());
-  });
+  /**
+   * Gets the current computed value.
+   * @returns {T} The current value.
+   */
+  computedFn.get = () => value;
 
   /**
    * Registers a listener that will be called when the computed value changes.
@@ -49,11 +65,16 @@ export default function computedValue<T>(
    * @param {Listener<T>} listener - The listener function.
    * @returns {() => boolean} Function to remove the listener.
    */
-  function effect(listener: Listener<T>): () => boolean {
-    listeners.add(listener);
-    Promise.resolve(listener(value));
-    return () => listeners.delete(listener);
-  }
+  computedFn.effect = (listener: Listener<T>) => {
+    effects.add(listener);
+    if (asyncEffect) {
+      Promise.resolve().then(() => listener(value));
+    } else listener(value);
+    return () => effects.delete(listener);
+  };
 
-  return { get, effect };
+  // Register notify as an effect for each dependency
+  deps.forEach((dep) => dep.effect(() => notify()));
+
+  return computedFn;
 }

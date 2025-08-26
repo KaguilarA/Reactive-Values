@@ -1,37 +1,60 @@
 import type { Listener } from "../types/listener";
-import type { ReactiveValue } from "../interface/Reactive";
+import type { ReactiveValue, ReactiveOptions } from "../interface/Reactive";
 import deepEqual from "../utils/deepEqual";
 
 /**
  * Creates a reactive value object that notifies listeners on changes.
+ * Listeners are called when the value changes.
+ *
  * @template T
  * @param {T} initialValue - The initial value.
- * @returns {ReactiveValue<T>} The reactive value object.
+ * @param {ReactiveOptions} [options] - Options for configuring async effects and updates.
+ * @returns {ReactiveValue<T> & (() => T)} The reactive value object, also callable as a function.
  */
 export default function reactiveValue<T>(
   initialValue: T,
-): ReactiveValue<T> {
+  options: ReactiveOptions = {
+    asyncEffect: false,
+    asyncUpdates: false
+  }
+): ReactiveValue<T> & (() => T) {
+  const effects = new Set<Listener<T>>();
+  const { asyncEffect = false, asyncUpdates = false } = options;
   let value: T = initialValue;
-  const listeners = new Set<Listener<T>>();
+  let scheduled = false;
+
+  /**
+   * The reactive function, returns the current value.
+   * @returns {T} The current value.
+   */
+  const reactiveFn = (() => value) as ReactiveValue<T> & (() => T);
 
   /**
    * Gets the current value.
    * @returns {T} The current value.
    */
-  function get(): T {
-    return value;
-  }
+  reactiveFn.get = () => value;
 
   /**
    * Sets a new value and notifies listeners if the value changed.
    * @param {T} newValue - The new value to set.
    */
-  function set(newValue: T): void {
+  reactiveFn.set = (newValue: T) => {
     if (!deepEqual(newValue, value)) {
       value = newValue;
-      listeners.forEach((listener) => Promise.resolve(listener(value)));
+      if (asyncUpdates) {
+        if (!scheduled) {
+          scheduled = true;
+          Promise.resolve().then(() => {
+            scheduled = false;
+            effects.forEach((listener) => listener(value));
+          });
+        }
+      } else {
+        effects.forEach((listener) => listener(value));
+      }
     }
-  }
+  };
 
   /**
    * Registers a listener that will be called when the value changes.
@@ -40,11 +63,13 @@ export default function reactiveValue<T>(
    * @param {Listener<T>} listener - The listener function.
    * @returns {() => boolean} Function to remove the listener.
    */
-  function effect(listener: Listener<T>): () => boolean {
-    listeners.add(listener);
-    Promise.resolve(listener(value));
-    return () => listeners.delete(listener);
-  }
+  reactiveFn.effect = (listener: Listener<T>) => {
+    effects.add(listener);
+    if (asyncEffect) {
+      Promise.resolve().then(() => listener(value));
+    } else listener(value);
+    return () => effects.delete(listener);
+  };
 
-  return { get, set, effect };
+  return reactiveFn;
 }

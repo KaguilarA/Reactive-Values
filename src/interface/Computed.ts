@@ -15,3 +15,13 @@ export interface ComputedValue<T> {
    */
   effect: (listener: (value: T) => void) => (() => boolean);
 }
+
+/**
+ * Options for configuring reactive values.
+ * @property {boolean} [asyncEffect] - Whether to run effect listeners asynchronously.
+ * @property {boolean} [asyncUpdates] - Whether to apply updates asynchronously.
+ */
+export interface ComputedOptions {
+  asyncEffect?: boolean;  // efectos iniciales
+  asyncUpdates?: boolean; // efectos al actualizar
+}

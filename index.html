@@ -7,7 +7,159 @@
     <title>Vite + TS</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <h1>🔄 Reactive Core</h1>
+      <div id="example"></div>
+    </div>
+    
+    <div class="container">
+      
+      <p>A lightweight and extensible TypeScript library for managing reactive values and computed dependencies. Designed
+        for projects that need reactivity without relying on heavy frameworks.</p>
+
+      <div class="section">
+        <h2>🚀 Installation</h2>
+        <pre><code>npm install reactive-core</code></pre>
+      </div>
+
+      <div class="section">
+        <h2>📦 What's Included?</h2>
+        <table>
+          <tr>
+            <th>Module</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td><code>Listener&lt;T&gt;</code></td>
+            <td>A function that reacts to value changes</td>
+          </tr>
+          <tr>
+            <td><code>ReactiveValue&lt;T&gt;</code></td>
+            <td>Interface for reactive values with <code>get</code>, <code>set</code>, and <code>effect</code> methods
+            </td>
+          </tr>
+          <tr>
+            <td><code>ComputedValue&lt;T&gt;</code></td>
+            <td>Interface for computed values with <code>get</code> and <code>effect</code> methods</td>
+          </tr>
+          <tr>
+            <td><code>reactiveValue(initialValue, options?)</code></td>
+            <td>Creates a reactive value with deep equality, batching, and listener support</td>
+          </tr>
+          <tr>
+            <td><code>computedValue(compute, deps, options?)</code></td>
+            <td>Creates a derived value that updates automatically when dependencies change</td>
+          </tr>
+          <tr>
+            <td><code>deepEqual(a, b)</code></td>
+            <td>Performs deep equality checks between complex values</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="section">
+        <h2>🧠 Core Concepts</h2>
+
+        <h3>Listener&lt;T&gt;</h3>
+        <pre><code>type Listener&lt;T&gt; = (value: T) =&gt; void;</code></pre>
+        <p>A function that runs whenever the reactive value changes. Useful for syncing UI, triggering side effects, or
+          propagating state.</p>
+
+        <h3>ReactiveValue&lt;T&gt;</h3>
+        <pre><code>interface ReactiveValue&lt;T&gt; {
+    get: () =&gt; T;
+    set: (value: T) =&gt; void;
+    effect: (listener: (value: T) =&gt; void) =&gt; (() =&gt; boolean);
+  }</code></pre>
+        <ul>
+          <li><code>get()</code>: Returns the current value.</li>
+          <li><code>set(value)</code>: Updates the value and notifies listeners if it changed.</li>
+          <li><code>effect(listener)</code>: Registers a listener and immediately invokes it. Returns a function to remove
+            the listener.</li>
+        </ul>
+
+        <h4>Options:</h4>
+        <pre><code>reactiveValue(initialValue, { asyncEffect: true });
+  reactiveValue(initialValue, { asyncUpdates: true });
+  reactiveValue(initialValue, { asyncEffect: true, asyncUpdates: true });</code></pre>
+
+        <h3>ComputedValue&lt;T&gt;</h3>
+        <pre><code>interface ComputedValue&lt;T&gt; {
+    get: () =&gt; T;
+    effect: (listener: (value: T) =&gt; void) =&gt; (() =&gt; boolean);
+  }</code></pre>
+        <ul>
+          <li><code>get()</code>: Returns the current value.</li>
+          <li><code>effect(listener)</code>: Registers a listener and immediately invokes it. Returns a function to remove
+            the listener.</li>
+        </ul>
+
+        <h4>Options:</h4>
+        <pre><code>computedValue(initialValue, { asyncEffect: true });
+  computedValue(initialValue, { asyncUpdates: true });
+  computedValue(initialValue, { asyncEffect: true, asyncUpdates: true });</code></pre>
+
+        <h3>reactiveValue(initialValue, options?)</h3>
+        <pre><code>import reactiveValue from 'reactive-core/values/reactiveValue';
+
+  const count = reactiveValue(0, { asyncEffect: false, asyncUpdates: true });
+  count.effect(val =&gt; console.log('Count:', val));
+  count.set(1);</code></pre>
+
+        <h3>computedValue(compute, deps, options?)</h3>
+        <pre><code>import reactiveValue from 'reactive-core/values/reactiveValue';
+  import computedValue from 'reactive-core/values/computedValue';
+
+  const firstName = reactiveValue('Jhon');
+  const lastName = reactiveValue('Doe');
+
+  const fullName = computedValue(
+    () =&gt; `${firstName.get()} ${lastName.get()}`,
+    [firstName, lastName],
+    { asyncEffect: false, asyncUpdates: true }
+  );
+
+  fullName.effect((name) =&gt; console.log('Full name:', name));</code></pre>
+
+        <h3>deepEqual(a, b)</h3>
+        <pre><code>import deepEqual from 'reactive-core/utils/deepEqual';
+
+  const isEqual = deepEqual({ a: 1 }, { a: 1 }); // true</code></pre>
+
+      </div>
+
+      <div class="section">
+        <h2>🧪 Full Example</h2>
+        <pre><code>import reactiveValue from 'reactive-core/values/reactiveValue';
+  import computedValue from 'reactive-core/values/computedValue';
+
+  const price = reactiveValue(100);
+  const quantity = reactiveValue(2);
+
+  const total = computedValue(() =&gt; price.get() * quantity.get(), [price, quantity], {
+    asyncEffect: false,
+    asyncUpdates: true
+  });
+
+  total.effect(val =&gt; console.log('Updated total:', val));
+
+  price.set(120);  // "Updated total: 240" (batched async)
+  quantity.set(3); // "Updated total: 360" (batched async)</code></pre>
+      </div>
+
+      <div class="section">
+        <h2>🎯 Purpose</h2>
+        <p>Reactive Core provides a clean foundation for building reactive systems in TypeScript. It emphasizes
+          simplicity, modularity, and flexibility—perfect for custom UI logic, state management, or animation triggers.
+        </p>
+      </div>
+
+      <div class="section">
+        <h2>📄 License</h2>
+        <p>MIT</p>
+      </div>
+    </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
+
