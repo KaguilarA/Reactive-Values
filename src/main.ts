@@ -1,24 +1,46 @@
 import './style.css'
-import typescriptLogo from './typescript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.ts'
+import reactiveValue from './values/reactiveValue';
+import computedValue from './values/computedValue';
+
+const count = reactiveValue(0);
+
+const doubleCount = computedValue(() => count.get() * 2, [count]);
+
+function setupCompuedCounter() {
+  const htmlElement = document.querySelector<HTMLSpanElement>('#computedCounter')!;
+
+  const setCounter = () => {
+    htmlElement.innerHTML = `${doubleCount.get()}`;
+  }
+
+  setCounter();
+}
+
+function setupReactiveCounter() {
+  const htlmElement = document.querySelector<HTMLButtonElement>('#counter')!;
+  const setCounter = (newCount: number) => {
+    count.set(newCount);
+    htlmElement.innerHTML = `count is ${count.get()}`;
+  }
+
+  setCounter(count.get());
+  setupCompuedCounter();
+  htlmElement.addEventListener('click', () => {
+    setCounter(count.get() + 1);
+    setupCompuedCounter();
+  })
+}
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-    </a>
-    <h1>Vite + TypeScript</h1>
+    <h1>Reactive Core</h1>
     <div class="card">
       <button id="counter" type="button"></button>
     </div>
     <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
+      The computed value is <spam id="computedCounter"></spam>
     </p>
   </div>
 `
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+setupReactiveCounter();
