@@ -1,4 +1,5 @@
 import type { Listener } from "../types/listener";
+import type { ComputedValue } from "../interface/Computed";
 import type { ReactiveValue } from "../interface/Reactive";
 import deepEqual from "../utils/deepEqual";
 
@@ -7,12 +8,12 @@ import deepEqual from "../utils/deepEqual";
  * @template T
  * @param {() => T} compute - Function to compute the value based on dependencies.
  * @param {ReactiveValue<any>[]} deps - Array of reactive values to watch as dependencies.
- * @returns {ReactiveValue<T>} The computed reactive value object.
+ * @returns {ComputedValue<T>} The computed reactive value object.
  */
 export default function computedValue<T>(
   compute: () => T,
   deps: ReactiveValue<any>[]
-): ReactiveValue<T> {
+): ComputedValue<T> {
   let value: T = compute();
   const listeners = new Set<Listener<T>>();
 
@@ -22,15 +23,6 @@ export default function computedValue<T>(
    */
   function get(): T {
     return value;
-  }
-
-  /**
-   * Throws an error because computed values cannot be set directly.
-   * @param {T} _ - Ignored value.
-   * @throws {Error} Always throws.
-   */
-  function set(_: T): void {
-    throw new Error("Cannot set value of a computed reactive value.");
   }
 
   /**
@@ -63,5 +55,5 @@ export default function computedValue<T>(
     return () => listeners.delete(listener);
   }
 
-  return { get, set, effect };
+  return { get, effect };
 }
