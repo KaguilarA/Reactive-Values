@@ -3,11 +3,11 @@ import type { ReactiveValue } from "../interface/Reactive";
 import deepEqual from "../utils/deepEqual";
 
 /**
- * Creates a computed reactive value derived from one or more reactive sources.
+ * Creates a computed reactive value that automatically updates when its dependencies change.
  * @template T
- * @param {() => T} compute - Function that computes the value.
- * @param {ReactiveValue<any>[]} deps - Dependencies to watch.
- * @returns {ReactiveValue<T>} A read-only reactive value.
+ * @param {() => T} compute - Function to compute the value based on dependencies.
+ * @param {ReactiveValue<any>[]} deps - Array of reactive values to watch as dependencies.
+ * @returns {ReactiveValue<T>} The computed reactive value object.
  */
 export default function computedValue<T>(
   compute: () => T,
@@ -16,15 +16,27 @@ export default function computedValue<T>(
   let value: T = compute();
   const listeners = new Set<Listener<T>>();
 
+  /**
+   * Gets the current computed value.
+   * @returns {T} The current value.
+   */
   function get(): T {
     return value;
   }
 
-  // No set → read-only
+  /**
+   * Throws an error because computed values cannot be set directly.
+   * @param {T} _ - Ignored value.
+   * @throws {Error} Always throws.
+   */
   function set(_: T): void {
     throw new Error("Cannot set value of a computed reactive value.");
   }
 
+  /**
+   * Notifies listeners if the computed value has changed.
+   * Recomputes the value and triggers listeners if necessary.
+   */
   function notify() {
     const newValue = compute();
     if (!deepEqual(newValue, value)) {
@@ -33,11 +45,18 @@ export default function computedValue<T>(
     }
   }
 
-  // Suscribirse a cambios de cada dependencia
+  // Register notify as an effect for each dependency
   deps.forEach((dep) => {
     dep.effect(() => notify());
   });
 
+  /**
+   * Registers a listener that will be called when the computed value changes.
+   * The listener is also called immediately with the current value.
+   * Returns a function to remove the listener.
+   * @param {Listener<T>} listener - The listener function.
+   * @returns {() => boolean} Function to remove the listener.
+   */
   function effect(listener: Listener<T>): () => boolean {
     listeners.add(listener);
     Promise.resolve(listener(value));

@@ -14,10 +14,18 @@ export default function reactiveValue<T>(
   let value: T = initialValue;
   const listeners = new Set<Listener<T>>();
 
+  /**
+   * Gets the current value.
+   * @returns {T} The current value.
+   */
   function get(): T {
     return value;
   }
 
+  /**
+   * Sets a new value and notifies listeners if the value changed.
+   * @param {T} newValue - The new value to set.
+   */
   function set(newValue: T): void {
     if (!deepEqual(newValue, value)) {
       value = newValue;
@@ -25,6 +33,13 @@ export default function reactiveValue<T>(
     }
   }
 
+  /**
+   * Registers a listener that will be called when the value changes.
+   * The listener is also called immediately with the current value.
+   * Returns a function to remove the listener.
+   * @param {Listener<T>} listener - The listener function.
+   * @returns {() => boolean} Function to remove the listener.
+   */
   function effect(listener: Listener<T>): () => boolean {
     listeners.add(listener);
     Promise.resolve(listener(value));
