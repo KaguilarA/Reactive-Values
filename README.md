@@ -104,7 +104,7 @@ const firstName = reactiveValue('Jhon');
 const lastName = reactiveValue('Doe');
 
 const fullName = computedValue(
-  () => `${firstName.get()} ${lastName.get()}`,
+  () => `${firstName()} ${lastName()}`,
   [firstName, lastName],
   { asyncEffect: false, asyncUpdates: true }
 );
@@ -139,7 +139,7 @@ import computedValue from 'reactive-core/values/computedValue';
 const price = reactiveValue(100);
 const quantity = reactiveValue(2);
 
-const total = computedValue(() => price.get() * quantity.get(), [price, quantity], {
+const total = computedValue(() => price() * quantity(), [price, quantity], {
   asyncEffect: false,
   asyncUpdates: true
 });

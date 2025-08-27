@@ -4,19 +4,27 @@ import type { ReactiveValue } from "../interface/Reactive";
 import deepEqual from "../utils/deepEqual";
 
 /**
- * Creates a computed reactive value that automatically updates when its dependencies change.
+ * Creates a computed reactive value that automatically updates when its 
+ * dependencies change.
  * Listeners are notified when the computed value changes.
  *
  * @template T
- * @param {() => T} compute - Function to compute the value based on dependencies.
- * @param {ReactiveValue<any>[]} deps - Array of reactive values to watch as dependencies.
- * @param {ComputedOptions} [options] - Options for configuring async effects and updates.
- * @returns {ComputedValue<T> & (() => T)} The computed reactive value object, also callable as a function.
+ * @param {() => T} compute - Function to compute the value based on 
+ * dependencies.
+ * @param {ReactiveValue<any>[]} deps - Array of reactive values to watch as 
+ * dependencies.
+ * @param {ComputedOptions} [options] - Options for configuring async effects 
+ * and updates.
+ * @returns {ComputedValue<T> & (() => T)} The computed reactive value object, 
+ * also callable as a function.
  */
 export default function computedValue<T>(
   compute: () => T,
   deps: ReactiveValue<any>[],
-  options: ComputedOptions = { asyncEffect: false, asyncUpdates: false }
+  options: ComputedOptions = {
+    asyncEffect: false,
+    asyncUpdates: false
+  }
 ): ComputedValue<T> & (() => T) {
   const { asyncEffect = false, asyncUpdates = false } = options;
   const effects = new Set<Listener<T>>();

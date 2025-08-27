@@ -8,8 +8,10 @@ import deepEqual from "../utils/deepEqual";
  *
  * @template T
  * @param {T} initialValue - The initial value.
- * @param {ReactiveOptions} [options] - Options for configuring async effects and updates.
- * @returns {ReactiveValue<T> & (() => T)} The reactive value object, also callable as a function.
+ * @param {ReactiveOptions} [options] - Options for configuring async effects 
+ * and updates.
+ * @returns {ReactiveValue<T> & (() => T)} The reactive value object, also 
+ * callable as a function.
  */
 export default function reactiveValue<T>(
   initialValue: T,
