@@ -1,12 +1,12 @@
 // Core reactive value
-export { default as reactiveValue } from "./values/reactiveValue";
+export { default as reactiveValue } from "./core/reactiveValue";
 
 // Computed values
-export { default as computedValue } from "./values/computedValue";
+export { default as computedValue } from "./core/computedValue";
 
 // Utils
 export { default as deepEqual } from "./utils/deepEqual";
 
 // Types & Interfaces
-export type { ReactiveValue } from "./interface/Reactive";
-export type { ComputedValue } from "./interface/Computed";
+export type { ReactiveValue } from "./interfaces/Reactive";
+export type { ComputedValue } from "./interfaces/Computed";

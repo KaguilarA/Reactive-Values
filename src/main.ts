@@ -20,12 +20,10 @@ doubleCount.effect((val) => {
 });
 
 removeOne.addEventListener('click', () => {
-  console.log("click -1 button");
-  count.set(count.get() - 1);
+  count.set(count() - 1);
 });
 
 addOne.addEventListener('click', () => {
-  console.log("click +1 button");
-  count.set(count.get() + 1);
+  count.set(count() + 1);
 });
 
