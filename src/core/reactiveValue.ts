@@ -1,5 +1,5 @@
 import type { Listener } from "../types/listener";
-import type { ReactiveValue, ReactiveOptions } from "../interface/Reactive";
+import type { ReactiveValue, ReactiveOptions } from "../interfaces/Reactive";
 import deepEqual from "../utils/deepEqual";
 
 /**
@@ -30,12 +30,6 @@ export default function reactiveValue<T>(
    * @returns {T} The current value.
    */
   const reactiveFn = (() => value) as ReactiveValue<T> & (() => T);
-
-  /**
-   * Gets the current value.
-   * @returns {T} The current value.
-   */
-  reactiveFn.get = () => value;
 
   /**
    * Sets a new value and notifies listeners if the value changed.

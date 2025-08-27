@@ -1,6 +1,6 @@
 import type { Listener } from "../types/listener";
-import type { ComputedValue, ComputedOptions } from "../interface/Computed";
-import type { ReactiveValue } from "../interface/Reactive";
+import type { ComputedValue, ComputedOptions } from "../interfaces/Computed";
+import type { ReactiveValue } from "../interfaces/Reactive";
 import deepEqual from "../utils/deepEqual";
 
 /**
@@ -25,7 +25,7 @@ export default function computedValue<T>(
     asyncEffect: false,
     asyncUpdates: false
   }
-): ComputedValue<T> & (() => T) {
+): ComputedValue<T> {
   const { asyncEffect = false, asyncUpdates = false } = options;
   const effects = new Set<Listener<T>>();
   let value: T = compute();
@@ -35,7 +35,7 @@ export default function computedValue<T>(
    * The computed function, returns the current value.
    * @returns {T} The current computed value.
    */
-  const computedFn = (() => value) as ComputedValue<T> & (() => T);
+  const computedFn = (() => value) as ComputedValue<T>;
 
   /**
    * Notifies listeners if the computed value has changed.
@@ -59,12 +59,6 @@ export default function computedValue<T>(
       }
     }
   }
-
-  /**
-   * Gets the current computed value.
-   * @returns {T} The current value.
-   */
-  computedFn.get = () => value;
 
   /**
    * Registers a listener that will be called when the computed value changes.
