@@ -15,8 +15,8 @@ This library provides types, interfaces, and utilities for building custom react
 | Module                                   | Description                                                                                         |
 | ---------------------------------------- | --------------------------------------------------------------------------------------------------- |
 | `Listener<T>`                            | A function that reacts to value changes                                                             |
-| `ReactiveValue<T>`                       | Interface for reactive values with `get`, `set`, and `effect` methods                               |
-| `ComputedValue<T>`                       | Interface for computed values with `get` and `effect` methods                                       |
+| `ReactiveValue<T>`                       | Interface for reactive values with `set`, and `effect` methods                               |
+| `ComputedValue<T>`                       | Interface for computed values with `effect` methods                                       |
 | `reactiveValue(initialValue, options?)`  | Creates a reactive value with deep equality, batching, and listener support; callable as a function |
 | `computedValue(compute, deps, options?)` | Creates a derived value that updates automatically when dependencies change; callable as a function |
 | `deepEqual(a, b)`                        | Performs deep equality checks between complex values                                                |
@@ -35,13 +35,11 @@ A function that runs whenever the reactive value changes. Useful for syncing UI,
 
 ```ts
 interface ReactiveValue<T> {
-  get: () => T;
   set: (value: T) => void;
   effect: (listener: (value: T) => void) => (() => boolean);
 }
 ```
 
-* `get()`: Returns the current value.
 * `set(value)`: Updates the value and notifies listeners if it changed.
 * `effect(listener)`: Registers a listener and immediately invokes it. Returns a function to remove the listener.
 
@@ -58,12 +56,9 @@ reactiveValue(initialValue, {
 
 ```ts
 interface ComputedValue<T> {
-  get: () => T;
   effect: (listener: (value: T) => void) => (() => boolean);
 }
 ```
-
-* `get()`: Returns the current value.
 * `effect(listener)`: Registers a listener and immediately invokes it. Returns a function to remove the listener.
 
 #### Options:
