@@ -1,42 +1,31 @@
 import './style.css'
-import reactiveValue from './values/reactiveValue';
-import computedValue from './values/computedValue';
+import { reactiveValue, computedValue } from './index';
 
 const count = reactiveValue(0);
 const doubleCount = computedValue(() => count() * 2, [count]);
 
-function setupComputedCounter() {
+const addOne = document.querySelector<HTMLButtonElement>('#addOne')!;
+const removeOne = document.querySelector<HTMLButtonElement>('#removeOne')!;
+
+count.effect((val) => {
+  const htmlElement = document.querySelector<HTMLSpanElement>('#reactiveCounter')!;
+
+  htmlElement.innerHTML = `${val}`;
+});
+
+doubleCount.effect((val) => {
   const htmlElement = document.querySelector<HTMLSpanElement>('#computedCounter')!;
 
-  doubleCount.effect((val) => {
-    htmlElement.innerHTML = `${val}`;
-  });
-}
+  htmlElement.innerHTML = `${val}`;
+});
 
-function setupReactiveCounter() {
-  const htmlElement = document.querySelector<HTMLButtonElement>('#counter')!;
+removeOne.addEventListener('click', () => {
+  console.log("click -1 button");
+  count.set(count.get() - 1);
+});
 
-  count.effect((val) => {
-    htmlElement.innerHTML = `count is ${val}`;
-  });
-
-  htmlElement.addEventListener('click', () => {
-    count.set(count.get() + 1);
-  });
-
-  setupComputedCounter();
-}
-
-document.querySelector<HTMLDivElement>('#example')!.innerHTML = `
-  <div>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      The computed value is <span id="computedCounter"></span>
-    </p>
-  </div>
-`;
-
-setupReactiveCounter();
+addOne.addEventListener('click', () => {
+  console.log("click +1 button");
+  count.set(count.get() + 1);
+});
 

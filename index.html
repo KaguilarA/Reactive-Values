@@ -7,12 +7,45 @@
     <title>Vite + TS</title>
   </head>
   <body>
-    <div id="app">
+    <header class="header-container">
       <h1>🔄 Reactive Core</h1>
-      <div id="example"></div>
-    </div>
+      <div class="example">
+        <div class="card">
+          <button id="addOne" type="button" title="Increment counter">
+            +1
+          </button>
+          <button id="removeOne" type="button" title="Increment counter">
+            -1
+          </button>
+        </div>
+        <p class="result">
+          The <code>doubleCount</code> reactive value is <span id="reactiveCounter"></span>
+        </p>
+        <p class="result">
+          The <code>doubleCount</code> computed value is <span id="computedCounter"></span>
+        </p>
+        <div class="example-code">
+          <pre>
+            <code>
+              const count = reactiveValue(0);
+              const doubleCount = computedValue(() => count() * 2, [count]);
+
+              count.effect((val) => {
+                const htmlElement = document.querySelector<HTMLSpanElement>('#reactiveCounter')!;
+                htmlElement.innerHTML = `${val}`;
+              });
+
+              doubleCount.effect((val) => {
+                const htmlElement = document.querySelector<HTMLSpanElement>('#computedCounter')!;
+                htmlElement.innerHTML = `${val}`;
+              });
+            </code>
+          </pre>
+        </div>
+      </div>
+    </header>
     
-    <div class="container">
+    <main class="container">
       
       <p>A lightweight and extensible TypeScript library for managing reactive values and computed dependencies. Designed
         for projects that need reactivity without relying on heavy frameworks.</p>
@@ -158,7 +191,7 @@
         <h2>📄 License</h2>
         <p>MIT</p>
       </div>
-    </div>
+    </main>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
