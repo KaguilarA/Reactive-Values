@@ -1,14 +1,14 @@
-# 🔄 Reactive Core
+# Reactive Core
 
 A lightweight and extensible TypeScript library for managing reactive values and computed dependencies. Designed for projects that need reactivity without relying on heavy frameworks.
 
-## 🚀 Installation
+## Installation
 
 ```bash
 npm install reactive-core
 ```
 
-## 📦 What's Included?
+## What's Included?
 
 This library provides types, interfaces, and utilities for building custom reactive systems:
 
@@ -21,7 +21,7 @@ This library provides types, interfaces, and utilities for building custom react
 | `computedValue(compute, deps, options?)` | Creates a derived value that updates automatically when dependencies change; callable as a function |
 | `deepEqual(a, b)`                        | Performs deep equality checks between complex values                                                |
 
-## 🧠 Core Concepts
+## Core Concepts
 
 ### `Listener<T>`
 
@@ -69,6 +69,8 @@ computedValue(computeFn, deps, {
   asyncUpdates: true;  // Batch computed updates asynchronously
 });
 ```
+
+## How to use
 
 ### `reactiveValue(initialValue, options?): ReactiveValue<T> & (() => T)`
 
@@ -125,7 +127,7 @@ Performs deep equality checks between two values. Supports:
 * Objects
 * `Date`, `RegExp`, `Map`, and `Set` instances
 
-## 🧪 Full Example
+## Full Example
 
 ```ts
 import reactiveValue from 'reactive-core/values/reactiveValue';
@@ -145,9 +147,9 @@ price.set(120);  // "Updated total: 240" (batched async)
 quantity.set(3); // "Updated total: 360" (batched async)
 ```
 
-## 🎯 Purpose
+## Purpose
 
 Reactive Core provides a clean foundation for building reactive systems in TypeScript. It emphasizes simplicity, modularity, and flexibility—perfect for custom UI logic, state management, or animation triggers.
 
-## 📄 License
+## License
 MIT
