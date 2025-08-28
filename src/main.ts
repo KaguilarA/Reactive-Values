@@ -1,5 +1,5 @@
 import './style.css'
-import { reactiveValue, computedValue } from './index';
+import { reactiveValue, computedValue } from './reactiveCore/index';
 
 const count = reactiveValue(0);
 const doubleCount = computedValue(() => count() * 2, [count]);
