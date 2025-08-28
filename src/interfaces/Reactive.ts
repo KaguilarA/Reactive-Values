@@ -5,7 +5,6 @@
 export interface ReactiveValue<T> {
   /**
    * Gets the current value.
-   * @returns {T} The current value.
    */
   (): T;
   /**

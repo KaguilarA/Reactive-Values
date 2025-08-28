@@ -3,6 +3,9 @@
  * @template T
  */
 export interface ComputedValue<T> {
+  /**
+   * Gets the current value.
+   */
   (): T;
 
   /**
