@@ -82,7 +82,7 @@ td {
   text-align: left;
 }
 
-.container {
+.main-container {
   max-width: 960px;
   margin: auto;
   background: #252525;
@@ -91,8 +91,13 @@ td {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.section {
+.main-container .section-content {
   margin-bottom: 2rem;
+}
+
+.main-container .section-content .concept-container , 
+.main-container .section-content .instruction-container {
+  margin-bottom: 1rem;
 }
 
 button {
