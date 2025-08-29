@@ -1,4 +1,3 @@
-import './style.css'
 import { reactiveValue, computedValue } from './reactiveCore/index';
 
 const count = reactiveValue(0);
