@@ -1,18 +1,22 @@
-# Reactive Core
+# Reactive Values
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Docs](https://img.shields.io/badge/docs-GitHub%20Pages-blue)](https://kaguilara.github.io/Reactive-Core/)
+# reactive-values
+
+[![npm version](https://img.shields.io/npm/v/reactive-values.svg)](https://www.npmjs.com/package/reactive-values)
+[![license](https://img.shields.io/npm/l/reactive-values.svg)](https://github.com/KaguilarA/Reactive-Core/blob/main/LICENSE)
+[![docs](https://img.shields.io/badge/docs-online-blue)](https://kaguilara.github.io/Reactive-Core/)
+
 
 ## Description
 
-Reactive Core is a lightweight TypeScript library designed to provide a simple and intuitive reactivity system, inspired by Angular signals & Svelte runes and other reactive paradigms. It allows you to define reactive values, listen to changes, and create computed values with minimal overhead.
+Reactive Core is a lightweight TypeScript library designed to provide a simple and intuitive reactivity system. It allows you to define reactive values, listen to changes, and create computed values with minimal overhead.
 
 ---
 
 ## Installation
 
 ```bash
-npm install reactivelib-core
+npm install reactive-values
 ```
 
 ---
@@ -22,7 +26,7 @@ npm install reactivelib-core
 Here’s how you can go from zero to reactive programming in seconds:
 
 ```ts
-import { ReactiveValue, ComputedValue } from "reactivelib-core";
+import { ReactiveValue, ComputedValue } from "reactive-values";
 
 // Step 1: Create a reactive value
 const counter = new ReactiveValue(0);

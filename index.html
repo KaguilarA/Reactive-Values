@@ -63,7 +63,7 @@
         <h2 class="subtitle">Installation</h2>
 <pre class="pre-content">
 <code class="code-content">
-  npm install reactivelib-core
+  npm install reactive-values
 </code>
 </pre>
       </section>
@@ -182,7 +182,7 @@
 
 <pre class="pre-content">
 <code class="code-content">
-  import { signalValue } from 'reactivelib-core';
+  import { signalValue } from 'reactive-values';
   
   const count = signalValue(0, { asyncEffect: false, asyncUpdates: true });
   
@@ -198,7 +198,7 @@
 
 <pre class="pre-content">
 <code class="code-content">
-  import { signalValue, computedValue } from 'reactivelib-core';
+  import { signalValue, computedValue } from 'reactive-values';
   
   const firstName = signalValue('Jhon');
   const lastName = signalValue('Doe');
@@ -219,7 +219,7 @@
           <h3>deepEqual(a, b)</h3>
 <pre class="pre-content">
 <code>
-  import { deepEqual } from 'reactivelib-core';
+  import { deepEqual } from 'reactive-values';
   
   const isEqual = deepEqual({ a: 1 }, { a: 1 }); // true
 </code>
@@ -231,7 +231,7 @@
         <h2 class="subtitle">Full Example</h2>
 <pre class="pre-content">
 <code class="code-content">
-  import { signalValue, computedValue } from 'reactivelib-core';
+  import { signalValue, computedValue } from 'reactive-values';
 
   const price = signalValue(100);
   const quantity = signalValue(2);
