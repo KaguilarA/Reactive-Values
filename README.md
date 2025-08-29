@@ -1,5 +1,9 @@
 # Reactive Core
 
+![Logo](/public/reactiveLogo.png)
+
+## What is Reactive Core?
+
 A lightweight and extensible TypeScript library for managing reactive values and computed dependencies. Designed for projects that need reactivity without relying on heavy frameworks.
 
 ## Installation
