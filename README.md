@@ -34,7 +34,7 @@ import { ReactiveValue } from "reactive-core";
 const count = new ReactiveValue(0);
 
 // Subscribe to changes
-count.subscribe((value) => {
+count.effect((value) => {
   console.log("Count changed:", value);
 });
 
@@ -59,8 +59,8 @@ const fullName = new ComputedValue(() => {
   return `${firstName.get()} ${lastName.get()}`;
 });
 
-// Subscribe to computed updates
-fullName.subscribe((value) => {
+// effect events to computed updates
+fullName.effect((value) => {
   console.log("Full name:", value);
 });
 
