@@ -5,7 +5,7 @@
 [![Docs](https://img.shields.io/badge/docs-online-blue)](https://kaguilara.github.io/Reactive-Core/)
 [![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
 
-> A lightweight TypeScript library for creating **reactive values** and **computed signals**, inspired by Angular Signals.
+> A lightweight TypeScript library for creating **reactive values** and **computed signals**, inspired by Swelve & Angular Signals.
 
 ---
 
