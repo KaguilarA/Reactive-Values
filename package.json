@@ -1,7 +1,7 @@
 {
   "name": "reactive-values",
-  "version": "1.0.7",
-  "description": "Lightweight reactive value library for TypeScript with support for deep equality and computed values.",
+  "version": "1.0.8",
+  "description": "Lightweight reactive value library with support for deep equality and computed values.",
   "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -36,13 +36,13 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/KaguilarA/Reactive-Value.git"
+    "url": "https://github.com/KaguilarA/Reactive-Values.git"
   },
   "engines": {
     "node": ">=14.0.0",
     "npm": ">=6.0.0"
   },
-  "homepage": "https://github.com/KaguilarA/Reactive-Value#readme",
+  "homepage": "https://github.com/KaguilarA/Reactive-Values#readme",
   "devDependencies": {
     "@vitest/coverage-v8": "^3.2.4",
     "@vitest/ui": "^3.2.4",
