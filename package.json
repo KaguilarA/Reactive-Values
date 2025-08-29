@@ -36,7 +36,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/KaguilarA/Reactive-Values.git"
+    "url": "git+https://github.com/KaguilarA/Reactive-Values.git"
   },
   "engines": {
     "node": ">=14.0.0",
