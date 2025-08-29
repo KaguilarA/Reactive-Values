@@ -1,6 +1,6 @@
 {
   "name": "reactive-values",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Lightweight reactive value library for TypeScript with support for deep equality and computed values.",
   "type": "module",
   "main": "dist/index.js",
