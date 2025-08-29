@@ -12,7 +12,7 @@ Reactive Core is a lightweight TypeScript library designed to provide a simple a
 ## Installation
 
 ```bash
-npm install npm i reactivelib-core
+npm install reactivelib-core
 ```
 
 ---
