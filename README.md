@@ -28,7 +28,7 @@ import { ReactiveValue, ComputedValue } from "reactivelib-core";
 const counter = new ReactiveValue(0);
 
 // Step 2: Listen to changes
-counter.subscribe((value) => {
+counter.effect((value) => {
   console.log("Counter changed:", value);
 });
 
@@ -39,7 +39,7 @@ counter.set(2); // Console: "Counter changed: 2"
 // Step 4: Create a computed value
 const double = new ComputedValue(() => counter.get() * 2);
 
-double.subscribe((value) => {
+double.effect((value) => {
   console.log("Double is:", value);
 });
 
