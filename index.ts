@@ -6,13 +6,13 @@ const addOne = document.querySelector<HTMLButtonElement>('#addOne')!;
 const removeOne = document.querySelector<HTMLButtonElement>('#removeOne')!;
 const resetCount = document.querySelector<HTMLButtonElement>('#resetCount')!;
 
-count.effect((val) => {
+count.effect((val: number) => {
   const htmlElement = document.querySelector<HTMLSpanElement>('#reactiveCounter')!;
 
   htmlElement.innerHTML = `${val}`;
 });
 
-doubleCount.effect((val) => {
+doubleCount.effect((val: number) => {
   const htmlElement = document.querySelector<HTMLSpanElement>('#computedCounter')!;
 
   htmlElement.innerHTML = `${val}`;

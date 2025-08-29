@@ -5,7 +5,7 @@
 
 ## Description
 
-Reactive Core is a lightweight TypeScript library designed to provide a simple and intuitive reactivity system, inspired by Angular signals and other reactive paradigms. It allows you to define reactive values, listen to changes, and create computed values with minimal overhead.
+Reactive Core is a lightweight TypeScript library designed to provide a simple and intuitive reactivity system, inspired by Angular signals & Svelte runes and other reactive paradigms. It allows you to define reactive values, listen to changes, and create computed values with minimal overhead.
 
 ---
 

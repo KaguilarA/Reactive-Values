@@ -8,5 +8,6 @@ export { default as computedValue } from "./core/computedValue";
 export { default as deepEqual } from "./utils/deepEqual";
 
 // Types & Interfaces
-export type { ReactiveValue } from "./interfaces/Reactive";
-export type { ComputedValue } from "./interfaces/Computed";
+export type { Listener } from './types/listener';
+export type { ReactiveValue, ReactiveOptions } from "./interfaces/Reactive";
+export type { ComputedValue, ComputedOptions } from "./interfaces/Computed";

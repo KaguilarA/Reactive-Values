@@ -1,5 +1,5 @@
 import type { Listener } from "./../types/listener";
-import type { ComputedValue, ComputedOptions } from "./../interfaces/Computed";
+import type { ComputedValue, ComputedOptions } from "../interfaces/Computed";
 import type { ReactiveValue } from "./../interfaces/Reactive";
 import deepEqual from "./../utils/deepEqual";
 
