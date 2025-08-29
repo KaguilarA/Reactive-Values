@@ -24,10 +24,10 @@ npm install reactive-values
 Here’s how you can go from zero to reactive programming in seconds:
 
 ```ts
-import { ReactiveValue, ComputedValue } from "reactive-values";
+import { SignalValue, ComputedValue } from "reactive-values";
 
 // Step 1: Create a reactive value
-const counter = new ReactiveValue(0);
+const counter = new SignalValue(0);
 
 // Step 2: Listen to changes
 counter.effect((value) => {
