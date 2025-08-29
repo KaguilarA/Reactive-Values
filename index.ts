@@ -1,4 +1,4 @@
-import { reactiveValue, computedValue } from './reactiveCore/index';
+import { reactiveValue, computedValue } from './src';
 
 const count = reactiveValue(0);
 const doubleCount = computedValue(() => count() * 2, [count]);

@@ -1,6 +1,6 @@
-import type { Listener } from "../types/listener";
-import type { ReactiveValue, ReactiveOptions } from "../interfaces/Reactive";
-import deepEqual from "../utils/deepEqual";
+import type { Listener } from "./../types/listener";
+import type { ReactiveValue, ReactiveOptions } from "./../interfaces/Reactive";
+import deepEqual from "./../utils/deepEqual";
 
 /**
  * Creates a reactive value object that notifies listeners on changes.

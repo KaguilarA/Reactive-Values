@@ -1,7 +1,7 @@
-import type { Listener } from "../types/listener";
-import type { ComputedValue, ComputedOptions } from "../interfaces/Computed";
-import type { ReactiveValue } from "../interfaces/Reactive";
-import deepEqual from "../utils/deepEqual";
+import type { Listener } from "./../types/listener";
+import type { ComputedValue, ComputedOptions } from "./../interfaces/Computed";
+import type { ReactiveValue } from "./../interfaces/Reactive";
+import deepEqual from "./../utils/deepEqual";
 
 /**
  * Creates a computed reactive value that automatically updates when its 

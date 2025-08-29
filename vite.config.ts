@@ -1,10 +1,19 @@
 import { defineConfig } from "vite";
-
-
+import dts from "vite-plugin-dts";
 
 export default defineConfig({
-  base: "./",
   build: {
+    lib: {
+      entry: "src/index.ts",
+      name: "ReactiveCore",
+      formats: ["es", "cjs"],
+      fileName: (format) => `index.${format}.js`
+    },
+    rollupOptions: {
+      external: [],
+    },
     outDir: "dist",
+    emptyOutDir: true
   },
+  plugins: [dts({ insertTypesEntry: true })]
 });
