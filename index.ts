@@ -1,6 +1,6 @@
-import { reactiveValue, computedValue } from './src';
+import { signalValue, computedValue } from './src';
 
-const count = reactiveValue(0);
+const count = signalValue(0);
 const doubleCount = computedValue(() => count() * 2, [count]);
 const addOne = document.querySelector<HTMLButtonElement>('#addOne')!;
 const removeOne = document.querySelector<HTMLButtonElement>('#removeOne')!;
