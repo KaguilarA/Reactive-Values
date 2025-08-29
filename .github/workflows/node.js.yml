@@ -29,6 +29,11 @@ jobs:
       - name: Build project
         run: npm run build
 
+      - name: Copy static files
+        run: |
+          mkdir -p dist
+          cp -r public/* dist/ || true
+          cp logo.png dist/ || true
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
