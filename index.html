@@ -5,7 +5,7 @@
     <link rel="icon" type="image/png" href="logo_small.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Reactive Core</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="index.css">
   </head>
   <body>
     <header class="header-container">
@@ -26,7 +26,7 @@
           </button>
         </div>
         <p class="result">
-          The <code class="code-content">count</code> reactive value is <span id="reactiveCounter"></span>
+          The <code class="code-content">count</code> signal value is <span id="reactiveCounter"></span>
         </p>
         <p class="result">
           The <code class="code-content">doubleCount</code> computed value is <span id="computedCounter"></span>
@@ -34,7 +34,7 @@
         <div class="example-code">
 <pre class="pre-content">
 <code class="code-content">
-  const count = reactiveValue(0);
+  const count = signalValue(0);
   const doubleCount = computedValue(() => count() * 2, [count]);
 
   count.effect((val) => {
@@ -80,8 +80,8 @@
             <td>A function that reacts to value changes</td>
           </tr>
           <tr>
-            <td><code>ReactiveValue&lt;T&gt;</code></td>
-            <td>Interface for reactive values with <code>set</code>, and <code>effect</code> methods
+            <td><code>SignalValue&lt;T&gt;</code></td>
+            <td>Interface for signal values with <code>set</code>, and <code>effect</code> methods
             </td>
           </tr>
           <tr>
@@ -89,7 +89,7 @@
             <td>Interface for computed values with <code>effect</code> method</td>
           </tr>
           <tr>
-            <td><code>reactiveValue(initialValue, options?)</code></td>
+            <td><code>signalValue(initialValue, options?)</code></td>
             <td>Creates a reactive value with deep equality, batching, and listener support</td>
           </tr>
           <tr>
@@ -119,10 +119,10 @@
         </div>
 
         <div class="concept-container">
-          <h3>ReactiveValue&lt;T&gt;</h3>
+          <h3>SignalValue&lt;T&gt;</h3>
 <pre class="pre-content">
 <code class="code-content">
-  interface ReactiveValue&lt;T&gt; {
+  interface SignalValue&lt;T&gt; {
     () =&gt; T;
     set: (value: T) =&gt; void;
     effect: (listener: (value: T) =&gt; void) =&gt; (() =&gt; boolean);
@@ -140,9 +140,9 @@
           <h4>Options:</h4>
 <pre class="pre-content">
 <code class="code-content">
-  reactiveValue(initialValue, { asyncEffect: true });
-  reactiveValue(initialValue, { asyncUpdates: true });
-  reactiveValue(initialValue, { asyncEffect: true, asyncUpdates: true });
+  signalValue(initialValue, { asyncEffect: true });
+  signalValue(initialValue, { asyncUpdates: true });
+  signalValue(initialValue, { asyncEffect: true, asyncUpdates: true });
 </code>
 </pre>
         </div>
@@ -178,13 +178,13 @@
       <section class="section-content">
         <h2 class="subtitle">How to use</h2>
         <div class="instruction-container">
-          <h3>reactiveValue(initialValue, options?)</h3>
+          <h3>signalValue(initialValue, options?)</h3>
 
 <pre class="pre-content">
 <code class="code-content">
-  import { reactiveValue } from 'reactivelib-core';
+  import { signalValue } from 'reactivelib-core';
   
-  const count = reactiveValue(0, { asyncEffect: false, asyncUpdates: true });
+  const count = signalValue(0, { asyncEffect: false, asyncUpdates: true });
   
   count.effect(val =&gt; console.log('Count:', val));
   count.set(1);
@@ -198,10 +198,10 @@
 
 <pre class="pre-content">
 <code class="code-content">
-  import { reactiveValue, computedValue } from 'reactivelib-core';
+  import { signalValue, computedValue } from 'reactivelib-core';
   
-  const firstName = reactiveValue('Jhon');
-  const lastName = reactiveValue('Doe');
+  const firstName = signalValue('Jhon');
+  const lastName = signalValue('Doe');
   
   const fullName = computedValue(
     () =&gt; `${firstName.get()} ${lastName.get()}`,
@@ -231,10 +231,10 @@
         <h2 class="subtitle">Full Example</h2>
 <pre class="pre-content">
 <code class="code-content">
-  import { reactiveValue, computedValue } from 'reactivelib-core';
+  import { signalValue, computedValue } from 'reactivelib-core';
 
-  const price = reactiveValue(100);
-  const quantity = reactiveValue(2);
+  const price = signalValue(100);
+  const quantity = signalValue(2);
 
   const total = computedValue(() =&gt; price.get() * quantity.get(), [price, quantity], {
     asyncEffect: false,
