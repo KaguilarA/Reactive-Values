@@ -1,7 +1,5 @@
 # Reactive Values
 
-# reactive-values
-
 [![npm version](https://img.shields.io/npm/v/reactive-values.svg)](https://www.npmjs.com/package/reactive-values)
 [![license](https://img.shields.io/npm/l/reactive-values.svg)](https://github.com/KaguilarA/Reactive-Core/blob/main/LICENSE)
 [![docs](https://img.shields.io/badge/docs-online-blue)](https://kaguilara.github.io/Reactive-Core/)
