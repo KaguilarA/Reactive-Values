@@ -48,7 +48,12 @@ export default function deepEqual(a: any, b: any): boolean {
     return true;
   }
 
-  if (typeof a === "object" && typeof b === "object") {
+  if (
+    typeof a === "object" &&
+    typeof b === "object" &&
+    Object.getPrototypeOf(a) === Object.prototype &&
+    Object.getPrototypeOf(b) === Object.prototype
+  ) {
     const keysA = Object.keys(a);
     const keysB = Object.keys(b);
     if (keysA.length !== keysB.length) return false;
