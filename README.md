@@ -155,5 +155,7 @@ quantity.set(3); // "Updated total: 360" (batched async)
 
 Reactive Core provides a clean foundation for building reactive systems in TypeScript. It emphasizes simplicity, modularity, and flexibility—perfect for custom UI logic, state management, or animation triggers.
 
+![Logo](/public/reactiveLogo.png)
+
 ## License
 MIT
