@@ -12,7 +12,7 @@ Reactive Core is a lightweight TypeScript library designed to provide a simple a
 ## Installation
 
 ```bash
-npm install reactive-core
+npm install npm i reactivelib-core
 ```
 
 ---
@@ -22,7 +22,7 @@ npm install reactive-core
 Here’s how you can go from zero to reactive programming in seconds:
 
 ```ts
-import { ReactiveValue, ComputedValue } from "reactive-core";
+import { ReactiveValue, ComputedValue } from "reactivelib-core";
 
 // Step 1: Create a reactive value
 const counter = new ReactiveValue(0);

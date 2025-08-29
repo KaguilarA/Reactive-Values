@@ -1,6 +1,6 @@
 {
-  "name": "reactive-core",
-  "version": "1.0.0",
+  "name": "reactivelib-core",
+  "version": "1.0.1",
   "description": "Lightweight reactive value library for TypeScript with support for deep equality and computed values.",
   "type": "module",
   "main": "dist/index.js",
