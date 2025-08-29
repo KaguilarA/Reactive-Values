@@ -2,7 +2,7 @@
  * Interface representing a reactive value.
  * @template T
  */
-export interface ReactiveValue<T> {
+export interface SignalValue<T> {
   /**
    * Gets the current value.
    */
@@ -25,7 +25,7 @@ export interface ReactiveValue<T> {
  * @property asyncEffect Whether to run effect listeners asynchronously.
  * @property asyncUpdates Whether to apply updates asynchronously.
  */
-export interface ReactiveOptions {
+export interface SignalOptions {
   asyncEffect?: boolean;
   asyncUpdates?: boolean;
 }

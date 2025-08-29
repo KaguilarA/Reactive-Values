@@ -1,6 +1,6 @@
 import type { Listener } from "./../types/listener";
 import type { ComputedValue, ComputedOptions } from "../interfaces/Computed";
-import type { ReactiveValue } from "./../interfaces/Reactive";
+import type { SignalValue } from "../interfaces/Signal";
 import deepEqual from "./../utils/deepEqual";
 
 /**
@@ -11,7 +11,7 @@ import deepEqual from "./../utils/deepEqual";
  * @template T
  * @param {() => T} compute - Function to compute the value based on 
  * dependencies.
- * @param {ReactiveValue<any>[]} deps - Array of reactive values to watch as 
+ * @param {SignalValue<any>[]} deps - Array of reactive values to watch as 
  * dependencies.
  * @param {ComputedOptions} [options] - Options for configuring async effects 
  * and updates.
@@ -20,7 +20,7 @@ import deepEqual from "./../utils/deepEqual";
  */
 export default function computedValue<T>(
   compute: () => T,
-  deps: ReactiveValue<any>[],
+  deps: SignalValue<any>[],
   options: ComputedOptions = {
     asyncEffect: false,
     asyncUpdates: false

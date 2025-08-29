@@ -1,25 +1,25 @@
 import type { Listener } from "../types/listener";
-import type { ReactiveValue, ReactiveOptions } from "../interfaces/Reactive";
+import type { SignalValue, SignalOptions } from "../interfaces/Signal";
 import deepEqual from "../utils/deepEqual";
 
 /**
- * Creates a reactive value object that notifies listeners on changes.
+ * Creates a singal value object that notifies listeners on changes.
  * Listeners are called when the value changes.
  *
  * @template T
  * @param {T} initialValue - The initial value.
- * @param {ReactiveOptions} [options] - Options for configuring async effects 
+ * @param {SignalOptions} [options] - Options for configuring async effects 
  * and updates.
- * @returns {ReactiveValue<T> & (() => T)} The reactive value object, also 
+ * @returns {SignalValue<T> & (() => T)} The reactive value object, also 
  * callable as a function.
  */
-export default function reactiveValue<T>(
+export default function <T>(
   initialValue: T,
-  options: ReactiveOptions = {
+  options: SignalOptions = {
     asyncEffect: false,
     asyncUpdates: false
   }
-): ReactiveValue<T> & (() => T) {
+): SignalValue<T> & (() => T) {
   const effects = new Set<Listener<T>>();
   const { asyncEffect = false, asyncUpdates = false } = options;
   let value: T = initialValue;
@@ -29,13 +29,13 @@ export default function reactiveValue<T>(
    * The reactive function, returns the current value.
    * @returns {T} The current value.
    */
-  const reactiveFn = (() => value) as ReactiveValue<T> & (() => T);
+  const signalFn = (() => value) as SignalValue<T> & (() => T);
 
   /**
    * Sets a new value and notifies listeners if the value changed.
    * @param {T} newValue - The new value to set.
    */
-  reactiveFn.set = (newValue: T) => {
+  signalFn.set = (newValue: T) => {
     if (!deepEqual(newValue, value)) {
       value = newValue;
       if (asyncUpdates) {
@@ -59,7 +59,7 @@ export default function reactiveValue<T>(
    * @param {Listener<T>} listener - The listener function.
    * @returns {() => boolean} Function to remove the listener.
    */
-  reactiveFn.effect = (listener: Listener<T>) => {
+  signalFn.effect = (listener: Listener<T>) => {
     effects.add(listener);
     if (asyncEffect) {
       Promise.resolve().then(() => listener(value));
@@ -67,5 +67,5 @@ export default function reactiveValue<T>(
     return () => effects.delete(listener);
   };
 
-  return reactiveFn;
+  return signalFn;
 }
