@@ -1,6 +1,6 @@
 # Reactive Core
 
-![Logo](/public/reactiveLogo.png)
+![Logo](/public/logo.png)
 
 ## What is Reactive Core?
 
