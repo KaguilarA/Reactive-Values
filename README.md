@@ -53,7 +53,8 @@ counter.set(3); // Console: "Counter changed: 3" and "Double is: 6"
 
 ## Documentation
 
-📖 Full documentation is available at: [Reactive Core Docs](https://kaguilara.github.io/Reactive-Core/)
+📖 Full documentation is available at: [Reactive Values Docs](https://kaguilara.github.io/Reactive-Values/)
+🛟 npm library: [Reactive Values npm library](https://www.npmjs.com/package/reactive-values)
 
 ---
 
