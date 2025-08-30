@@ -1,7 +1,7 @@
 import type { Listener } from "./../types/listener";
 import type { ComputedValue, ComputedOptions } from "../interfaces/Computed";
 import type { SignalValue } from "../interfaces/Signal";
-import deepEqual from "./../utils/deepEqual";
+import deepEqual from "../utils/deepEqual";
 
 /**
  * Creates a computed reactive value that automatically updates when its 
@@ -18,7 +18,7 @@ import deepEqual from "./../utils/deepEqual";
  * @returns {ComputedValue<T> & (() => T)} The computed reactive value object, 
  * also callable as a function.
  */
-export default function computedValue<T>(
+export default function <T>(
   compute: () => T,
   deps: SignalValue<any>[],
   options: ComputedOptions = {
