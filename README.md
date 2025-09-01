@@ -7,7 +7,7 @@
 
 ## Description
 
-Reactive Core is a lightweight JavaScript & TypeScript library designed to provide a simple and intuitive reactivity system. It allows you to define reactive values, listen to changes, and create computed values with minimal overhead.
+Reactive Values is a lightweight JavaScript & TypeScript library designed to provide a simple and intuitive reactivity system. It allows you to define reactive values, listen to changes, and create computed values with minimal overhead.
 
 ---
 
@@ -53,7 +53,7 @@ counter.set(3); // Console: "Counter changed: 3" and "Double is: 6"
 
 ## Documentation
 
-📖[Reactive Values Full documentation](https://kaguilara.github.io/Reactive-Values/)
+[Reactive Values Full documentation](https://kaguilara.github.io/Reactive-Values/)
 
 ---
 
