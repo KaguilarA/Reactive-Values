@@ -1,6 +1,6 @@
 {
   "name": "reactive-values",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "description": "Lightweight reactive value library with support for deep equality and computed values.",
   "type": "module",
   "author": "Kevin Aguilar",
@@ -13,7 +13,8 @@
   "exports": {
     ".": {
       "import": "./dist/index.es.js",
-      "require": "./dist/index.cjs.js"
+      "require": "./dist/index.cjs.js",
+      "types": "./dist/index.d.ts"
     }
   },
   "scripts": {
