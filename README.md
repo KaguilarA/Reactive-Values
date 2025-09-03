@@ -27,7 +27,7 @@ Here’s how you can go from zero to reactive programming in seconds:
 import { SignalValue, ComputedValue } from "reactive-values";
 
 // Step 1: Create a reactive value
-const counter = new SignalValue(0);
+const counter = SignalValue(0);
 
 // Step 2: Listen to changes
 counter.effect((value) => {
@@ -39,7 +39,7 @@ counter.set(1); // Console: "Counter changed: 1"
 counter.set(2); // Console: "Counter changed: 2"
 
 // Step 4: Create a computed value
-const double = new ComputedValue(() => counter.get() * 2);
+const double = ComputedValue(() => counter() * 2);
 
 double.effect((value) => {
   console.log("Double is:", value);
