@@ -1,6 +1,6 @@
 {
   "name": "reactive-values",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "description": "Lightweight reactive value library with support for deep equality and computed values.",
   "type": "module",
   "author": "Kevin Aguilar",
@@ -52,7 +52,7 @@
     "typescript": "~5.8.3",
     "vite": "7.1.2",
     "vite-plugin-dts": "4.5.4",
-    "vitest": "^3.2.4"
+    "vitest": "3.2.4"
   },
   "license": "MIT"
 }
