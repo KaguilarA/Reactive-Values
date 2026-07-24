@@ -1,6 +1,6 @@
 {
   "name": "reactive-values",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "description": "Lightweight reactive value library with support for deep equality and computed values.",
   "type": "module",
   "author": {
@@ -48,10 +48,6 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/KaguilarA/Reactive-Values.git"
-  },
-  "engines": {
-    "node": ">=14.0.0",
-    "npm": ">=6.0.0"
   },
   "homepage": "https://kaguilara.github.io/Reactive-Values/",
   "devDependencies": {
