@@ -1,5 +1,5 @@
 {
-  "name": "@owldev_23/reactive-values",
+  "name": "reactive-values",
   "version": "1.0.20",
   "description": "Lightweight reactive value library with support for deep equality and computed values.",
   "type": "module",
