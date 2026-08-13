@@ -8,6 +8,7 @@
     "paths": {
       "@reactiveCore/*": ["./src/*"],
     },
+    "forceConsistentCasingInFileNames": true,
     "moduleResolution": "node",
 
     /* Linting */
