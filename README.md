@@ -57,6 +57,42 @@ counter.set(3); // Console: "Counter changed: 3" and "Double is: 6"
 
 ---
 
+## Browser CDN
+
+Reactive Values can be used directly in a browser without a bundler. Include the CDN build with a regular script tag:
+
+```html
+<script src="https://unpkg.com/reactive-values@latest/dist/cdn.min.js"></script>
+<script>
+  const count = ReactiveValues.signalValue(0);
+  const doubleCount = ReactiveValues.computedValue(
+    () => count() * 2,
+    [count],
+  );
+
+  count.effect((value) => console.log("Count:", value));
+  doubleCount.effect((value) => console.log("Double:", value));
+
+  count.set(1);
+</script>
+```
+
+The CDN bundle exposes the following global namespace:
+
+- `ReactiveValues.signalValue`
+- `ReactiveValues.computedValue`
+- `ReactiveValues.deepEqual`
+
+The CDN bundle is an IIFE and includes its dependencies, so it does not require `require`, `import`, or a module bundler.
+
+You can also use the jsDelivr CDN:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/reactive-values@latest/dist/cdn.min.js"></script>
+```
+
+---
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
